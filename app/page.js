@@ -8,9 +8,9 @@ import Footer from "./Footer"
 const page=()=>{
   return(
     <div>
-      <Navbar/>
-      <Home/>
-      <Footer/>
+      <Navbar/><br />
+      <Home/><br />
+      <Footer/><br />
     </div>
 
   )
