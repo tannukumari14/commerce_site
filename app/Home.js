@@ -54,7 +54,7 @@ const Home = () => {
           </div>
           <div className="carousel-item">
             <img
-              src="https://static.dokodemo.world/web/event/sellerPickup/1280x532_en.png"
+              src="https://www.tastingtable.com/img/gallery/the-best-day-of-the-week-to-go-grocery-shopping-at-target/intro-1660767333.jpg"
               alt="Second slide"
               // className="d-block w-100"
               style={{ height: '500px' ,width:'1930px',marginLeft:'50px'}}

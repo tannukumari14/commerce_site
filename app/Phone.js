@@ -50,17 +50,14 @@
 // };
 
 // export default Phone;
-
-
-// Product.js or Phone.js
-
 import React, { useEffect, useState } from 'react';
 
-const Product = () => {
-  const [items, setItems] = useState([]);
+const Electronics = () => {
+  const [categories, setCategories] = useState([]);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    const apiUrl = 'https://api.escuelajs.co/api/v1/products';
+    const apiUrl = 'https://api.escuelajs.co/api/v1/categories';
 
     const fetchData = async () => {
       try {
@@ -71,10 +68,19 @@ const Product = () => {
         }
 
         const data = await response.json();
-        // Limit to only 5 items
-        setItems(data.slice(0, 5));
+
+        // Limit the categories to only 5
+        const formattedData = data.slice(0, 5).map(category => ({
+          id: category.id,
+          name: category.name,
+          image: category.image
+        }));
+
+        setCategories(formattedData);
+        setLoading(false);
       } catch (error) {
-        console.error('Error fetching data:', error.message);
+        console.error('Error fetching categories:', error.message);
+        setLoading(false);
       }
     };
 
@@ -83,29 +89,25 @@ const Product = () => {
 
   return (
     <div className="product-container">
-      <h1 className="product-title">Featured Products</h1>
+      <h1 className="product-title">Featured Categories</h1>
       <div className="product-list">
-        {items.map((item) => (
-          <div key={item.id} className="product-item">
-            {item.image ? (
+        {loading ? (
+          <p>Loading...</p>
+        ) : (
+          categories.map(category => (
+            <div key={category.id} className="product-item">
               <img
-                src={item.image}
-                alt={item.title}
+                src={category.image}
+                alt={category.name}
                 className="product-image"
               />
-            ) : (
-              <div className="product-no-image">No Image Available</div>
-            )}
-            <h2 className="product-title">{item.title}</h2>
-            <p className="product-price">
-              Price: {item.price ? `$${item.price.toFixed(2)}` : 'N/A'}
-            </p>
-          </div>
-        ))}
+              <h2 className="product-title">{category.name}</h2>
+            </div>
+          ))
+        )}
       </div>
     </div>
   );
 };
 
-export default Product;
-
+export default Electronics;
